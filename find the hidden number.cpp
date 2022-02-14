@@ -23,7 +23,7 @@ int main() {
     string name;
     name = changeName();
     do {
-        srand(time(nullptr));
+        srand((unsigned) time(nullptr));
         scelta = menu();
         switch (scelta) {
             case 1:
@@ -72,6 +72,7 @@ int menu() {
  */
 void play(string name) {
     int num = random(), insert, tryy = 10;
+    bool found = false;
     do {
         if (tryy > 5) {
             cout << "Hai " << tryy << " tentativi, tra " << tryy - 5 << " tentativi puoi chiedere l'aiuto\n\n";
@@ -95,10 +96,12 @@ void play(string name) {
         if (insert != 0) {
             if (insert != num) {
                 cout << "No, numero sbagliato\n\n";
+            } else {
+                found = true;
             }
         }
-    } while (num != insert && tryy >= 0);
-    if (tryy > 0) {
+    } while (!found && tryy > 0);
+    if (tryy > 0 || found) {
         cout << "Complimenti \"" << name << "\" hai trovato il numero nascosto con " << 10 - tryy << " tentativi\n\n";
     } else {
         cout << "Mi dispiace \"" << name << "\" non hai indovinato il numero nascosto, il numero era \"" << num
